@@ -26,6 +26,13 @@ WORKDIR /app/apps/web
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
+# Copy only the package.json files with their directory structure, for SBOM vulnerability detection
+# We have to copy all packages because find doesn't work well with the child packages
+# that have relative symlinks upwards to /app/node_modules/.pnpm
+WORKDIR /app
+RUN mkdir -p /app/all-package-files && \
+    find node_modules -name "package.json" -exec cp --parents {} /app/all-package-files \;
+
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -44,8 +51,8 @@ RUN mkdir -p .next && chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone /app
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
-# OPTIONAL?: include lockfile in runner for SBOM vulnerability detection
-# COPY pnpm-lock.yaml /app
+# Copy only the package.json files with their directory structure, for SBOM vulnerability detection
+COPY --from=builder --chown=nextjs:nodejs /app/all-package-files/node_modules/.pnpm ./node_modules
 
 USER nextjs
 
