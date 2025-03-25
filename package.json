@@ -1,0 +1,16 @@
+{
+  "name": "pnpm-trivy-repro",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "web:docker:build": "docker build . -t pnpm-trivy-repro-web -f apps/web/Dockerfile",
+    "web:docker:run": "docker run --rm -p 3000:3000 pnpm-trivy-repro-web"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.2"
+  },
+  "packageManager": "pnpm@10.6.5",
+  "engines": {
+    "node": ">=20"
+  }
+}
