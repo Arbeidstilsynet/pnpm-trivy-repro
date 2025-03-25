@@ -33,12 +33,12 @@ export default function RootLayout({
           <ul className="flex space-x-6">
             <li>
               <Link href="/" className="hover:underline font-medium">
-                Star Wars
+                Axios
               </Link>
             </li>
             <li>
-              <Link href="/dompurify" className="hover:underline font-medium">
-                DOMPurify
+              <Link href="/marked" className="hover:underline font-medium">
+                Marked
               </Link>
             </li>
           </ul>
