@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -28,6 +29,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <nav className="p-4 bg-gray-100">
+          <ul className="flex space-x-6">
+            <li>
+              <Link href="/" className="hover:underline font-medium">
+                Star Wars
+              </Link>
+            </li>
+            <li>
+              <Link href="/dompurify" className="hover:underline font-medium">
+                DOMPurify
+              </Link>
+            </li>
+          </ul>
+        </nav>
         <Providers>{children}</Providers>
       </body>
     </html>
