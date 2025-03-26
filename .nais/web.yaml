@@ -4,6 +4,7 @@ metadata:
   name: pnpm-trivy-repro-web
   namespace: plattform
 spec:
+  ttl: 1h
   ingresses:
     - https://pnpm-trivy-repro-web.dev.atil.cloud.nais.io
   accessPolicy:
